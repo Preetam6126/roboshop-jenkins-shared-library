@@ -2,12 +2,23 @@ def call() {
   pipeline {
     agent any
     
+    parameters {
+        string(name: 'ENV', defaultValue: '', description: 'Which Environment ?')
+        
+    }
+    
+    
+    options {
+        ansiColor('xterm')
+    }    
+    
+    
     stages {
         
         stage('Init') {
           steps {
               
-            sh 'terraform init -backend-config=env-dev/state.tfvars'  
+            sh 'terraform init -backend-config=env-${ENV}/state.tfvars'  
           }
         }
         
