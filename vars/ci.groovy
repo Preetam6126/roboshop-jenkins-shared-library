@@ -15,14 +15,14 @@ def call() {
    
       }
     }
-    
-    stage('Test Cases') {
-    
-      steps {
-    
-      echo 'Test Cases'
+   stage('Test Cases') { 
+    steps {
+     script {
+       common.testcases()
+                   
+        }
+      }
     }
    }
   }
- }
 }
