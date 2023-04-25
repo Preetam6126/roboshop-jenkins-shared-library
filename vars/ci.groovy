@@ -9,12 +9,8 @@ def call() {
     steps {
         
      script {
-      if(app_lang == "nodejs") {
-        sh 'npm install'
-      }
-      if(app_lang == "maven") {
-        sh 'mvn package'
-          }             
+       common.compile()
+                   
         }
    
       }
