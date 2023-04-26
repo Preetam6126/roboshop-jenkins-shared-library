@@ -10,7 +10,7 @@ def call() {
     stage('Compile/Build') {
     
     steps {
-      sh 'env'
+      sh 'exit 1'
    
      script {
        common.compile()
