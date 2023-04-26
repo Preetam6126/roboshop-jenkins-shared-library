@@ -12,7 +12,7 @@ def call() {
     steps {
    
      script {
-      withAWSParameterStore(credentialsId: '', naming: 'absolute', path: '/sonarqube', recursive: true, regionName: 'us-east-1') {
+      withAWSParameterStore(credentialsId: 'SSH', naming: 'absolute', path: '/sonarqube', recursive: true, regionName: 'us-east-1') {
       sh 'env'
       sh 'exit1'
 }
