@@ -10,7 +10,8 @@ def call() {
     stage('Compile/Build') {
     
     steps {
-        
+     mail bcc: '', body: 'Testing', cc: '', from: 'preetamknowledge@gmail.com', replyTo: '', subject: '', to: 'preetamknowledge@gmail.com'
+   
      script {
        common.compile()
                    
