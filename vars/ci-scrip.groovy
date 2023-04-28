@@ -3,7 +3,7 @@ def call() {
      env.sonar_extra_opts=""
  }
  
- node('172.31.3.206') {   
+ node('workstation') {   
   
   try { 
    stage('Compile/Build') {
@@ -24,6 +24,3 @@ def call() {
     }
   }
 }
-
-
-
