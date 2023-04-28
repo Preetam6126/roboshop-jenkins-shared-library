@@ -4,7 +4,6 @@ def call() {
  }
  
  node('workstation') {   
-     sh ' env'
   
   try { 
    stage('Compile/Build') {
@@ -19,9 +18,8 @@ def call() {
   common.codequality()
      }
   } catch (e) {
-   
-   mail bcc: '', body: "critical look into the ${component} \n ${BUILD_URL}", cc: '', from: 'preetamknowledge@gmail.com', replyTo: '', subject: "${component} - Pipeline Failed", to: 'preetamknowledge@gmail.com'
-   
+    mail body: "<h1>${component} - Pipeline Failed \n ${BUILD_URL}</h1>", from: 'preetamknowledge@gmail.com', subject: "${component} - Pipeline Failed", to: 'preetamknowledge@gmail.com',  mimeType: 'text/html'
     }
   }
 }
+
