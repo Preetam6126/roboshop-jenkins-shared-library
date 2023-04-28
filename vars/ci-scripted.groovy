@@ -3,7 +3,7 @@ def call() {
      env.sonar_extra_opts=""
  }
  
- node('workstation') {
+ node('workstation') {   
   
   try { 
    stage('Compile/Build') {
