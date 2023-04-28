@@ -4,6 +4,7 @@ def call() {
  }
  
  node('workstation') {   
+     sh ' env'
   
   try { 
    stage('Compile/Build') {
