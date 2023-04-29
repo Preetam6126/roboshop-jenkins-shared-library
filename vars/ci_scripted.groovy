@@ -6,7 +6,17 @@ def call() {
   node( "workstation" ) {   
   
   try { 
+   
+   stage('Check OUt Code') {
+     sh 'ls -l'
+     cleanWs()
+     sh 'ls -l'
+     git branch: 'main', url: 'https://github.com/Preetam6126/cart'
+     sh 'ls -l'
+   }
+   
    stage('Compile/Build') {
+     sh 'env'
     common.compile()
    }
    
