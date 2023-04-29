@@ -5,7 +5,9 @@ def call() {
  
  if (env.TAG_NAME ==~ ".*") {
      env.GTAG= "true"
-   }
+   } else {
+    env.GTAG = "false"
+  }
    
   node( "workstation" ) {   
   
@@ -27,13 +29,13 @@ def call() {
   printIn GTAG
   printIn BRANCH_NAME
   
-   if (env.GTAG != "true" && env.BRANCH_NAME != "main") {
+   if (env.GTAG != "true" && env.BRANCH_NAME != "main") {  
      stage('Test Cases') { 
     common.testcases()
     }
    }
    
-   if (BRANCH_NAME ==~ "PR-.*") {
+   if (BRANCH_NAME ==~ "PR-.*") {  
     stage('Code Quality') {
      common.codequality()
      }
