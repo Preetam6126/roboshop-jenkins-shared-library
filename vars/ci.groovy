@@ -1,24 +1,28 @@
-// def call() {
-//  if (!env.sonar_extra_opts) {
-//      env.sonar_extra_opts=""
-//  }
-//   pipeline {
-//   agent any
+def call() {
+ // if (!env.sonar_extra_opts) {
+ //     env.sonar_extra_opts=""
+ // }
+  pipeline {
+  agent any
   
-//   stages {
+  stages {
   
-//     stage('Compile/Build') {
+    stage('Compile/Build') {
     
-//     steps {
+    steps {
    
-//      script {
-    
-//        common.compile()
+     script {
+        if(app_lang== "nodejs") {
+         echo 'i love nodejs'
+        }
+        if(app_lang == "maven") {
+         echo 'i love maven'
+        }
                    
-//         }
+        }
    
-//       }
-//     }
+      }
+    }
 //    stage('Test Cases') { 
 //     steps {
 //      script {
@@ -47,17 +51,17 @@
 
 
 
-def call(){
-   pipeline {
-     agent any
+// def call(){
+//    pipeline {
+//      agent any
      
-     stages {
+//      stages {
       
-       stage('Compile/Build'){
-        steps {
-        echo 'Compile/build'
-        }
-       } 
+//        stage('Compile/Build'){
+//         steps {
+//         echo 'Compile/build'
+//         }
+//        } 
        
        stage('Test cases'){
         steps{
