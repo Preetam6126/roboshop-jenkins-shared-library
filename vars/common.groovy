@@ -21,7 +21,7 @@ def testcases() {
         // python -m unittests
         // go test
         
-        sh 'echo OK'
+        sh 'echo i am okay'
 }
 
 def codequality() {
