@@ -34,7 +34,7 @@ def call() {
      }
     }
     
-    If(BRANCH_NAME ==~ "PR-.*"){
+    if(BRANCH_NAME ==~ "PR-.*"){
      stage('Code Quality') { 
        common.codequality()
      }
