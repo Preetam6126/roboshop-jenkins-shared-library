@@ -1,4 +1,4 @@
-def call() {
+ call() {
  if (!env.sonar_extra_opts) {
      env.sonar_extra_opts=""
  }
@@ -8,7 +8,7 @@ def call() {
   stages {
   
     stage('Compile/Build') {
-    when { not { branch 'main' } }
+    // when { not { branch 'main' } }
     steps {
    
      script {
