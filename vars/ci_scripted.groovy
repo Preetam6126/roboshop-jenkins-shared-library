@@ -3,6 +3,10 @@ def call() {
      env.sonar_extra_opts=""
  }
  
+ if(env.TAG_NAME !=~ ".*") {
+    env.GTAG = "true"
+ }
+ 
    node('workstation') {
     
     try { 
@@ -24,8 +28,10 @@ def call() {
     common.compile()
      }
    }
+   if(env.GTAG != "true") {
      stage('Test Cases') { 
     common.testcases()
+     }
     }
      stage('Code Quality') { 
     common.codequality()
