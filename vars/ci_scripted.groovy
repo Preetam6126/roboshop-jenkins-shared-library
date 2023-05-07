@@ -28,17 +28,30 @@ def call() {
       common.compile()
      }
    }
+   
+     
+    if(BRANCH_NAME ==~ "PR-.*"){
+     stage('Code Quality') { 
+       common.codequality()
+     }
+    }
+    
+    
    if(env.GTAG != "true" && env.BRANCH_NAME != "main") {
      stage('Test Cases') { 
        common.testcases()
      }
     }
     
-    if(BRANCH_NAME ==~ "PR-.*"){
-     stage('Code Quality') { 
-       common.codequality()
+     if(env.GTAG == "true"){
+     stage('Package') { 
+       common.testcases()
      }
-    }
+    } 
+    
+   stage('Artifact Upload') { 
+       common.testcases()
+     }
     
    }catch (e) {
     mail body: "<h1>${component} - Pipeline Failed \n ${BUILD_URL}</h1>", from: 'preetamknowledge@gmail.com', subject: "${component} - Pipeline Failed", to: 'preetamknowledge@gmail.com',  mimeType: 'text/html'
