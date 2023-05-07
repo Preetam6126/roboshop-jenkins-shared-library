@@ -25,16 +25,19 @@ def call() {
    
     stage('Compile/Build') {
      sh 'env'
-    common.compile()
+      common.compile()
      }
    }
    if(env.GTAG != "true" && env.BRANCH_NAME != "main") {
      stage('Test Cases') { 
-    common.testcases()
+       common.testcases()
      }
     }
+    
+    If(BRANCH_NAME ==~ "PR-.*"){
      stage('Code Quality') { 
-    common.codequality()
+       common.codequality()
+     }
     }
     
    }catch (e) {
