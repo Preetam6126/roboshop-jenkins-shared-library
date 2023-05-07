@@ -47,10 +47,10 @@ def call() {
      stage('Package') { 
        common.testcases()
      }
-    } 
     
-   stage('Artifact Upload') { 
+     stage('Artifact Upload') { 
        common.testcases()
+      }
      }
     
    }catch (e) {
