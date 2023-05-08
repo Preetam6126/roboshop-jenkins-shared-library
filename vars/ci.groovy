@@ -1,70 +1,113 @@
- call() {
+def call() {
  if (!env.sonar_extra_opts) {
      env.sonar_extra_opts=""
  }
-  pipeline {
-  agent any
-  
-  stages {
-  
-    stage('Compile/Build') {
-    // when { not { branch 'main' } }
-    steps {
-   
-     script {
+ 
+ if(env.TAG_NAME ==~ ".*") {
+    env.GTAG = "true"
+ }
+ 
+   node('workstation') {
     
-       common.compile()
-                   
-        }
+    try { 
    
-      }
-    }
-   stage('Test Cases') { 
-    steps {
-     script {
-       common.testcases()
-                   
-        }
-      }
-    }
-  stage('Code Quality') { 
-    steps {
-     script {
-       common.codequality()
-                   
-        }
-      }
-    }
+   stage('Check OUt Code') {
+    sh 'ls -l'
+     cleanWs()
+     sh 'ls -l'
+     git branch: 'main', url: 'https://github.com/Preetam6126/cart'
+     sh 'ls -l'
    }
    
-   post {
-     failure{
-        mail bcc: '', body: "critical look into ${component} \n ${BUILD_URL}", cc: '', from: 'preetamknowledge@gmail.com', replyTo: '', subject: "${component} - Pipeline Failed", to: 'preetamknowledge@gmail.com'
+   sh 'env'
+   
+   if(env.BRANCH_NAME != "main") {
+   
+    stage('Compile/Build') {
+     sh 'env'
+      common.compile()
      }
+   }
+   
+     
+    if(BRANCH_NAME ==~ "PR-.*"){
+     stage('Code Quality') { 
+       common.codequality()
+     }
+    }
+    
+    
+   if(env.GTAG != "true" && env.BRANCH_NAME != "main") {
+     stage('Test Cases') { 
+       common.testcases()
+     }
+    }
+    
+     if(env.GTAG == "true"){
+     stage('Package') { 
+       common.prepareArtifacts()
+     }
+    
+     stage('Artifact Upload') { 
+       common.testcases()
+      }
+     }
+    
+   }catch (e) {
+    mail body: "<h1>${component} - Pipeline Failed \n ${BUILD_URL}</h1>", from: 'preetamknowledge@gmail.com', subject: "${component} - Pipeline Failed", to: 'preetamknowledge@gmail.com',  mimeType: 'text/html'
    }
   }
 }
 
 
 
-// def call(){
-//    pipeline {
-//      agent any
-     
-//      stages {
-      
-//        stage('Compile/Build'){
-//         steps {
-//         echo 'Compile/build'
-//         }
-//        } 
-       
-//        stage('Test cases'){
-//         steps{
-//         echo 'Test cases'
-//         }
-//        }
-       
+ 
+//  if (env.TAG_NAME ==~ ".*") {
+//      env.GTAG= "true"
+//    }
+   
+//   node( "workstation" ) {   
+  
+//   try { 
+   
+//    stage('Check OUt Code') {
+//      cleanWs()
+//      git branch: 'main', url: 'https://github.com/Preetam6126/cart'
+//    }
+   
+//    sh 'env'
+   
+//    if (env.BRANCH_NAME != "main") {
+//     stage('Compile/Build') {
+//     common.compile()
 //      }
 //    }
+  
+  
+//    if (env.GTAG != "true" && env.BRANCH_NAME != "main") {  
+//      stage('Test Cases') { 
+//     common.testcases()
+//     }
+//    }
+   
+//    if (BRANCH_NAME ==~ "PR-.*") {  
+//     stage('Code Quality') {
+//      common.codequality()
+//      }
+//    }
+   
+   
+//    if (env.GTAG == "true") {  
+//      stage('Package') { 
+//     common.testcases()
+//     }
+//      stage('Artifact Upload') { 
+//     common.testcases()
+//     }
+//    }
+//   } catch (e) {
+//     mail body: "<h1>${component} - Pipeline Failed \n ${BUILD_URL}</h1>", from: 'preetamknowledge@gmail.com', subject: "${component} - Pipeline Failed", to: 'preetamknowledge@gmail.com',  mimeType: 'text/html'
+//     }
+//   }
 // }
+
