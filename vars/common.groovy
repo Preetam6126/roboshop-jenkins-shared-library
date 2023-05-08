@@ -37,3 +37,17 @@ def codequality() {
 }
 
 // sh 'sonar-scanner -Dsonar.host.url=http://172.31.9.183:9000 -Dsonar.login=admin -Dsonar.password=admin123 -Dsonar.projectKey=${component} -Dsonar.java.binaries=./target'
+
+def prepareArtifacts() {
+  sh 'echo ${TAG_NAME} >VERSION'    
+  if (app_lang == "nodejs") {   
+    sh 'zip -r ${component}-${TAG_NAME}.zip server.js node_moudles' 
+    
+    
+//     node_moudles VERSION -x Jenkinsfile'
+//   }
+//   if (app_lang == "angular") {   
+//     sh 'zip -r ${component}-${TAG_NAME}.zip server.js node_moudles VERSION -x Jenkinsfile'
+  }
+  
+}
