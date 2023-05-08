@@ -49,3 +49,7 @@ def prepareArtifacts() {
   }
   
 }
+
+def artifactupload() {
+  sh 'curl -v -u admin:admin123 --upload-file ${component}-${TAG_NAME}.zip http://172.31.5.233:8081/repository/${component}-${TAG_NAME}.zip'
+}
