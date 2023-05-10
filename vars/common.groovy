@@ -53,6 +53,8 @@ def prepareArtifacts() {
 def artifactupload() {
   sh 'echo ${TAG_NAME} >VERSION'
   if (app_lang == "nodejs" || app_lang == "angular") {
-  sh 'curl -v -u admin:admin123 --upload-file ${component}-${TAG_NAME}.zip http://172.31.5.233:8081/repository/${component}-${TAG_NAME}.zip'
+  sh 'curl -v -u admin:admin123 --upload-file ${component}-${TAG_NAME}.zip http://172.31.5.233:8081/${component}/${component}-${TAG_NAME}.zip'
  }
 }
+
+
