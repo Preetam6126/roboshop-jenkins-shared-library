@@ -2,7 +2,6 @@ def call() {
     
     pipeline {
         agent any 
-            sh 'ls -l'
             options {
              ansiColor('xterm')
             }
