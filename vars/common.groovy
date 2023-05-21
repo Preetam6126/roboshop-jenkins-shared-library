@@ -39,17 +39,17 @@ def codequality() {
 // sh 'sonar-scanner -Dsonar.host.url=http://172.31.9.183:9000 -Dsonar.login=admin -Dsonar.password=admin123 -Dsonar.projectKey=${component} -Dsonar.java.binaries=./target'
 
 def prepareArtifacts() {
-  sh 'echo ${TAG_NAME} >VERSION'    
-  // if (app_lang == "nodejs" || app_lang == "angular") {   
-  //   // sh 'zip -r ${component}-${TAG_NAME}.zip server.js node_moudles VERSION -x Jenkinsfile' 
+  // sh 'echo ${TAG_NAME} >VERSION'    
+  // // if (app_lang == "nodejs" || app_lang == "angular") {   
+  // //   // sh 'zip -r ${component}-${TAG_NAME}.zip server.js node_moudles VERSION -x Jenkinsfile' 
+  // //   sh 'zip -r ${component}-${TAG_NAME}.zip * -x Jenkinsfile'
+  // // }
+  // if (app_lang == "maven") {   
+  //   sh 'zip -r ${component}-${TAG_NAME}.zip ${component}.jar schema VERSION'
+  // } else {   
   //   sh 'zip -r ${component}-${TAG_NAME}.zip * -x Jenkinsfile'
-  // }
-  if (app_lang == "maven") {   
-    sh 'zip -r ${component}-${TAG_NAME}.zip ${component}.jar schema VERSION'
-  } else {   
-    sh 'zip -r ${component}-${TAG_NAME}.zip * -x Jenkinsfile'
-  } 
-  
+  // } 
+  docker build -t 598125288280.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME} .
 }
 
 def artifactupload() {
